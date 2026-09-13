@@ -1,0 +1,6 @@
+{
+  "name": "ULTRON",
+  "description": "Futuristic personal Android voice and text assistant with local command parser, OpenRouter AI, and native Android Studio project.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
