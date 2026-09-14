@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ChatBubble
+import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Terminal
 import androidx.compose.material3.Icon
@@ -33,15 +34,21 @@ fun SidebarNav(
         modifier = modifier
             .fillMaxWidth()
             .background(UltronSurface)
-            .padding(vertical = 8.dp, horizontal = 12.dp),
-        horizontalArrangement = Arrangement.SpaceEvenly,
+            .padding(vertical = 6.dp, horizontal = 6.dp),
+        horizontalArrangement = Arrangement.SpaceAround,
         verticalAlignment = Alignment.CenterVertically
     ) {
         NavButton(
-            title = "AI CHAT",
+            title = "CHAT",
             icon = Icons.Default.ChatBubble,
             isSelected = currentSection == NavSection.AI_CHAT,
             onClick = { onSelectSection(NavSection.AI_CHAT) }
+        )
+        NavButton(
+            title = "HISTORY",
+            icon = Icons.Default.History,
+            isSelected = currentSection == NavSection.HISTORY,
+            onClick = { onSelectSection(NavSection.HISTORY) }
         )
         NavButton(
             title = "TERMINAL",
@@ -50,7 +57,7 @@ fun SidebarNav(
             onClick = { onSelectSection(NavSection.TERMINAL) }
         )
         NavButton(
-            title = "SETTINGS",
+            title = "CONFIG",
             icon = Icons.Default.Settings,
             isSelected = currentSection == NavSection.SETTINGS,
             onClick = { onSelectSection(NavSection.SETTINGS) }
@@ -73,26 +80,26 @@ private fun NavButton(
             .clip(RoundedCornerShape(8.dp))
             .background(bg)
             .clickable { onClick() }
-            .padding(horizontal = 14.dp, vertical = 8.dp),
+            .padding(horizontal = 10.dp, vertical = 6.dp),
         contentAlignment = Alignment.Center
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(6.dp)
+            horizontalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             Icon(
                 imageVector = icon,
                 contentDescription = title,
                 tint = contentColor,
-                modifier = Modifier.size(18.dp)
+                modifier = Modifier.size(16.dp)
             )
             Text(
                 text = title,
                 color = contentColor,
-                fontSize = 12.sp,
+                fontSize = 11.sp,
                 fontFamily = FontFamily.Monospace,
                 fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium,
-                letterSpacing = 1.sp
+                letterSpacing = 0.5.sp
             )
         }
     }

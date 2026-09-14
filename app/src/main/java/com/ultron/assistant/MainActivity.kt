@@ -21,6 +21,7 @@ import com.ultron.assistant.theme.UltronDarkBg
 import com.ultron.assistant.ui.components.FuturisticHud
 import com.ultron.assistant.ui.components.SidebarNav
 import com.ultron.assistant.ui.screens.ChatScreen
+import com.ultron.assistant.ui.screens.HistoryScreen
 import com.ultron.assistant.ui.screens.SettingsScreen
 import com.ultron.assistant.ui.screens.TerminalScreen
 import com.ultron.assistant.viewmodel.NavSection
@@ -85,6 +86,7 @@ class MainActivity : ComponentActivity() {
                     ) {
                         when (currentSection) {
                             NavSection.AI_CHAT -> ChatScreen(viewModel = viewModel)
+                            NavSection.HISTORY -> HistoryScreen(viewModel = viewModel)
                             NavSection.TERMINAL -> TerminalScreen(viewModel = viewModel)
                             NavSection.SETTINGS -> SettingsScreen(viewModel = viewModel)
                         }

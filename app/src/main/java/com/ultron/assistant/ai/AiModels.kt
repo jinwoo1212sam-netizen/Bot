@@ -6,16 +6,36 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class AiChatMessage(
     val role: String, // "system", "user", "assistant"
-    val content: String
+    val content: String,
+    val imageBase64: String? = null,
+    val imageMimeType: String = "image/jpeg"
 )
 
 @Serializable
 data class AiRequest(
     val model: String,
     val messages: List<AiChatMessage>,
-    val temperature: Float = 0.3f,
-    val maxTokens: Int = 500
+    val temperature: Float = 0.5f,
+    val maxTokens: Int = 1200
 )
+
+object AiModelHelper {
+    /**
+     * Checks whether the given model name is likely multimodal / vision-capable.
+     * Default model "ling-3.0-flash-vl:free" has the "-vl" (Vision-Language) suffix.
+     */
+    fun isVisionCapable(modelName: String): Boolean {
+        val name = modelName.lowercase()
+        return name.contains("-vl") ||
+                name.contains("vision") ||
+                name.contains("4o") ||
+                name.contains("gemini") ||
+                name.contains("claude-3") ||
+                name.contains("pixtral") ||
+                name.contains("llava") ||
+                name.contains("multimodal")
+    }
+}
 
 @Serializable
 data class AiStructuredAction(
@@ -48,12 +68,6 @@ data class AiStructuredAction(
         return ToolCall(type.lowercase(), params)
     }
 }
-
-@Serializable
-data class AiStructuredPayload(
-    val actions: List<AiStructuredAction> = emptyList(),
-    val response: String
-)
 
 data class AiResponse(
     val isSuccess: Boolean,

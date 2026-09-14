@@ -23,6 +23,9 @@ class UltronApplication : Application() {
     lateinit var preferencesRepository: PreferencesRepository
         private set
 
+    lateinit var conversationRepository: com.ultron.assistant.data.ConversationRepository
+        private set
+
     lateinit var contactsRepository: ContactsRepository
         private set
 
@@ -41,6 +44,7 @@ class UltronApplication : Application() {
         database = AppDatabase.getDatabase(this)
         secureStorage = SecureStorage(this)
         preferencesRepository = PreferencesRepository(this, secureStorage)
+        conversationRepository = com.ultron.assistant.data.ConversationRepository(database.conversationDao())
         contactsRepository = ContactsRepository(this)
         socialAccountsRepository = SocialAccountsRepository(this)
         customCommandsRepository = CustomCommandsRepository(this)

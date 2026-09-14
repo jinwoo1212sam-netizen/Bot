@@ -37,6 +37,7 @@ class PreferencesRepository(
         val AI_BASE_URL = stringPreferencesKey("ai_base_url")
         val AI_CHAT_URL = stringPreferencesKey("ai_chat_url")
         val AI_MODEL = stringPreferencesKey("ai_model")
+        val MAX_CONTEXT_MESSAGES = androidx.datastore.preferences.core.intPreferencesKey("max_context_messages")
         val APP_ALIASES_JSON = stringPreferencesKey("app_aliases_json")
     }
 
@@ -100,6 +101,10 @@ class PreferencesRepository(
         it[Keys.AI_MODEL] ?: "ling-3.0-flash-vl:free"
     }
 
+    val maxContextMessages: Flow<Int> = context.dataStore.data.map {
+        it[Keys.MAX_CONTEXT_MESSAGES] ?: 10
+    }
+
     val appAliasesJson: Flow<String> = context.dataStore.data.map {
         it[Keys.APP_ALIASES_JSON] ?: "{\"yt\":\"youtube\",\"ig\":\"instagram\",\"snap\":\"snapchat\",\"fb\":\"facebook\"}"
     }
@@ -120,6 +125,7 @@ class PreferencesRepository(
     suspend fun setAiBaseUrl(url: String) = context.dataStore.edit { it[Keys.AI_BASE_URL] = url }
     suspend fun setAiChatUrl(url: String) = context.dataStore.edit { it[Keys.AI_CHAT_URL] = url }
     suspend fun setAiModel(model: String) = context.dataStore.edit { it[Keys.AI_MODEL] = model }
+    suspend fun setMaxContextMessages(max: Int) = context.dataStore.edit { it[Keys.MAX_CONTEXT_MESSAGES] = max }
     suspend fun setAppAliasesJson(json: String) = context.dataStore.edit { it[Keys.APP_ALIASES_JSON] = json }
 
     fun getApiKey(): String = secureStorage.getString(SecureStorage.KEY_API_KEY)
